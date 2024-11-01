@@ -4,6 +4,14 @@ const isPublicRoute = createRouteMatcher([
   "/ask-question(.*)",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/",
+  "/api/webhook",
+  "question/:id",
+  "/tags",
+  "/tags/:id",
+  "/profile/:id",
+  "/community",
+  "/jobs",
 ]);
 
 const middleware = clerkMiddleware((auth, request) => {
