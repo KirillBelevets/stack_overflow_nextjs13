@@ -5,11 +5,15 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
 
+  console.log("userId", userId);
+
   const mongoUser = await getUserById({ userId });
+
+  console.log("mongoUser", mongoUser);
 
   return (
     <div>

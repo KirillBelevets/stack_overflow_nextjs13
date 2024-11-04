@@ -37,6 +37,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotestk.variable}`}>
         <ClerkProvider
+          dynamic
           appearance={{
             elements: {
               formButtonPrimary: "primary-gradient",

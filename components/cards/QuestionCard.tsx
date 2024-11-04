@@ -32,7 +32,8 @@ const QuestionCard = ({
   answers,
   createdAt,
 }: QuestionProps) => {
-  console.log(">>", createdAt);
+  console.log(">>>", author);
+
   return (
     <div className="card-wrapper p-9 sm:px-11 rounded-[10px]">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
@@ -57,7 +58,7 @@ const QuestionCard = ({
           <Metric
             imgUrl="/assets/icons/avatar.svg"
             alt="user"
-            value={author.name}
+            value={author ? author.name : "Unknown Author"}
             title={` - asked ${getTimestamp(createdAt)}`}
             href={`/profile/${author._id}`}
             isAuthor
