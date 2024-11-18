@@ -26,14 +26,20 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = await auth();
   let result;
 
-  const filter = searchParams?.filter || "";
+  const {
+    filter = "",
+    q: searchQuery = "",
+    page: pageStr,
+  } = (await searchParams) || {};
+
+  const page = pageStr ? +pageStr : 1;
 
   if (filter === "recommended") {
     if (userId) {
       result = await getRecommendedQuestions({
         userId,
-        searchQuery: searchParams.q,
-        page: searchParams.page ? +searchParams.page : 1,
+        searchQuery,
+        page,
       });
     } else {
       result = {
@@ -43,9 +49,9 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
     }
   } else {
     result = await getQuestions({
-      searchQuery: searchParams.q,
-      filter: searchParams.filter,
-      page: searchParams.page ? +searchParams.page : 1,
+      searchQuery,
+      filter,
+      page,
     });
   }
 
@@ -107,10 +113,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
       </div>
 
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
+        <Pagination pageNumber={page} isNext={result.isNext} />
       </div>
     </>
   );

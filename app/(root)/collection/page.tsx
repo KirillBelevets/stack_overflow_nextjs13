@@ -14,11 +14,19 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
 
   if (!userId) return null;
 
+  const {
+    q: searchQuery = "",
+    filter = "",
+    page: pageStr,
+  } = (await searchParams) || {};
+
+  const page = pageStr ? +pageStr : 1;
+
   const result = await getSavedQuestions({
     clerkId: userId,
-    searchQuery: searchParams.q,
-    filter: searchParams.filter,
-    page: searchParams.page ? +searchParams.page : 1,
+    searchQuery,
+    filter,
+    page,
   });
 
   return (
@@ -66,10 +74,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
       </div>
 
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
+        <Pagination pageNumber={page} isNext={result.isNext} />
       </div>
     </>
   );

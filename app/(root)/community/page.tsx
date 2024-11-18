@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   // Destructure and parse searchParams properties
-  const { q, filter, page } = searchParams;
+  const { q, filter, page } = await searchParams;
 
   // Convert the page to a number with a fallback to 1
   const parsedPage = page ? +page : 1;
@@ -57,10 +57,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       </section>
 
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
+        <Pagination pageNumber={parsedPage} isNext={result.isNext} />
       </div>
     </>
   );
