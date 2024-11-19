@@ -36,7 +36,7 @@ export interface SearchParamsProps {
 
 export interface URLProps {
   params: { id: string };
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<any> | undefine;
 }
 
 export interface BadgeCounts {
