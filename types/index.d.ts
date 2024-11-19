@@ -31,7 +31,7 @@ export interface ParamsProps {
 }
 
 export interface SearchParamsProps {
-  searchParams: Promise<Record<string, string | undefined>>;
+  searchParams: Promise<any> | undefined;
 }
 
 export interface URLProps {
