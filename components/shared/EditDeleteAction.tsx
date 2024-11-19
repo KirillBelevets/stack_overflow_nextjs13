@@ -4,7 +4,6 @@ import { deleteAnswer } from "@/lib/actions/answer.action";
 import { deleteQuestion } from "@/lib/actions/question.action";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { type } from "os";
 
 interface Props {
   type: string;
@@ -20,7 +19,7 @@ const EditDeleteAction = ({ type, itemId }: Props) => {
 
   const handleDelete = async () => {
     if (type === "Question") {
-      //Delete question
+      // Delete question
       await deleteQuestion({
         questionId: JSON.parse(itemId),
         path: pathname,

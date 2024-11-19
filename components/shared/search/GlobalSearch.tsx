@@ -19,11 +19,11 @@ const GlobalSearch = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleOutsideClick = (event: any) => {
+    const handleOutsideClick = (event: MouseEvent) => {
       if (
         searchContainerRef.current &&
         // ts-ignore
-        !searchContainerRef.current.contains(event.target)
+        !searchContainerRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
         setSearch("");

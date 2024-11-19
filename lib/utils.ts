@@ -4,6 +4,14 @@ import qs from "query-string";
 import { BADGE_CRITERIA } from "@/constants";
 import { BadgeCounts } from "@/types";
 
+// interface BadgeCriteria {
+//   [key: string]: {
+//     GOLD: number;
+//     SILVER: number;
+//     BRONZE: number;
+//   };
+// }
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -13,7 +21,7 @@ export const getTimestamp = (createdAt: Date): string => {
     typeof createdAt === "string" ? new Date(createdAt) : createdAt;
 
   const now = new Date();
-  const elapsed = now.getTime() - createdAt.getTime();
+  const elapsed = now.getTime() - createdDate.getTime();
 
   const seconds = Math.floor(elapsed / 1000);
   const minutes = Math.floor(seconds / 60);
@@ -109,7 +117,7 @@ interface BadgeParam {
   }[];
 }
 
-export const assignBadges = (params: BadgeParam) => {
+export const assignBadges = (params: BadgeParam): BadgeCounts => {
   const badgeCounts: BadgeCounts = {
     GOLD: 0,
     SILVER: 0,
@@ -120,11 +128,13 @@ export const assignBadges = (params: BadgeParam) => {
 
   criteria.forEach((item) => {
     const { type, count } = item;
-    const badgeLevels: any = BADGE_CRITERIA[type];
+    const badgeLevels = BADGE_CRITERIA[type];
 
-    Object.keys(badgeLevels).forEach((level: any) => {
-      if (count >= badgeLevels[level]) {
-        badgeCounts[level as keyof BadgeCounts] += 1;
+    Object.keys(badgeLevels).forEach((level) => {
+      const typedLevel = level as keyof BadgeCounts;
+
+      if (count >= badgeLevels[typedLevel]) {
+        badgeCounts[typedLevel] += 1;
       }
     });
   });

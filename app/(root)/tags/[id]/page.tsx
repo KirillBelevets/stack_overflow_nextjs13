@@ -29,6 +29,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           result.questions.map((question: any) => (
             <QuestionCard
               key={question._id}

@@ -62,7 +62,7 @@ const Profile = ({ clerkId, user }: Props) => {
 
       router.back();
     } catch (error) {
-      console.log(user);
+      console.log(error);
     } finally {
       setIsSubmitting(false);
     }

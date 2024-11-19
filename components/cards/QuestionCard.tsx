@@ -6,7 +6,7 @@ import { formatLargeNumber, getTimestamp } from "@/lib/utils";
 import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../shared/EditDeleteAction";
 
-interface QuestionProps {
+export interface QuestionProps {
   _id: string;
   title: string;
   tags: {

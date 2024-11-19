@@ -7,7 +7,6 @@ import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
 import Votes from "./Votes";
 import Link from "next/link";
-import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import Pagination from "./Pagination";
 
 interface Props {

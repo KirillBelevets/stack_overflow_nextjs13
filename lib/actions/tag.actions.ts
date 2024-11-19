@@ -59,6 +59,7 @@ export async function getAllTags(params: GetAllTagsParams) {
         break;
       case "name":
         sortOptions = { name: 1 };
+        break;
       case "old":
         sortOptions = { createdAt: 1 };
         break;

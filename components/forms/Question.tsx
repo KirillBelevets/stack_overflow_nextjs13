@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,19 +16,26 @@ import {
 import { Input } from "../ui/input";
 import Image from "next/image";
 import { QuestionSchema } from "@/lib/validations";
-import { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
 import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { Badge } from "../ui/badge";
 import { useRouter, usePathname } from "next/navigation";
 
-const type: any = "create";
-
 interface Props {
   type?: string;
   mongoUserId: string;
   questionDetails?: string;
+}
+
+export interface Tag {
+  name: string;
+  _id: string;
+}
+
+interface Field {
+  name: string;
+  value: string[];
 }
 
 const Question = ({ type, mongoUserId, questionDetails }: Props) => {
@@ -41,7 +49,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const parsedQuestionDetails =
     questionDetails && JSON.parse(questionDetails || "");
 
-  const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name);
+  const groupedTags = parsedQuestionDetails?.tags.map((tag: Tag) => tag.name);
 
   const log = () => {
     if (editorRef.current) {
@@ -85,6 +93,8 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         router.push("/");
       }
     } catch (error) {
+      console.error(error);
+      throw error;
     } finally {
       setIsSubmitting(false);
     }
@@ -94,7 +104,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    field: any
+    field: Field
   ) => {
     if (e.key === "Enter" && field.name === "tags") {
       e.preventDefault();
@@ -110,7 +120,6 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           });
         }
 
-        // const currentTags = Array.isArray(field.value) ? field.value : []; // Ensure it's an array
         console.log("field.value", field.value);
 
         if (!field.value.includes(tagValue as never)) {
@@ -124,7 +133,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
     }
   };
 
-  const handleTagRemove = (tag: string, field: any) => {
+  const handleTagRemove = (tag: string, field: Field) => {
     const newTags = field.value.filter((t: string) => t !== tag);
 
     form.setValue("tags", newTags);
@@ -152,7 +161,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Be specific and imagine you're asking a question to another
+                Be specific and imagine you&apos;re asking a question to another
                 person.
               </FormDescription>
               <FormMessage className="text-red-500" />
@@ -238,7 +247,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
 
                   {field.value.length > 0 && (
                     <div className="flex-start mt-2.5 gap-2.5">
-                      {field.value.map((tag: any) => (
+                      {field.value.map((tag: string) => (
                         <Badge
                           key={tag}
                           className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"

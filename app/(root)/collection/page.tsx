@@ -1,4 +1,4 @@
-import QuestionCard from "@/components/cards/QuestionCard";
+import QuestionCard, { QuestionProps } from "@/components/cards/QuestionCard";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
@@ -49,7 +49,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
-          result.questions.map((question: any) => (
+          result.questions.map((question: QuestionProps) => (
             <QuestionCard
               key={question._id}
               _id={question._id}

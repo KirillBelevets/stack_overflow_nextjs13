@@ -8,8 +8,7 @@ import {
   upvoteQuestion,
 } from "@/lib/actions/question.action";
 import { usePathname } from "next/navigation";
-import path from "path";
-import router, { useRouter } from "next/router";
+import router from "next/router";
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { viewQuestion } from "@/lib/actions/interaction.action";

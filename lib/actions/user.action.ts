@@ -17,12 +17,11 @@ import Question from "@/database/question.model";
 import { FilterQuery } from "mongoose";
 import Tag from "@/database/tag.model";
 import Answer from "@/database/answer.model";
-import { skip } from "node:test";
-import console, { count } from "console";
+import console from "console";
 import { BadgeCriteriaType } from "@/types";
 import { assignBadges } from "../utils";
 
-export async function getUserById(params: any) {
+export async function getUserById(params: GetUserByIdParams) {
   try {
     connectToDatabase();
 

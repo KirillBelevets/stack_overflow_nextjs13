@@ -8,12 +8,18 @@ import Image from "next/image";
 import GlobalFilters from "./GlobalFilters";
 import { globalSearch } from "@/lib/actions/general.action";
 
+interface ResultItem {
+  type: "question" | "answer" | "user" | "tag";
+  id: string | number;
+  title: string;
+}
+
 const GlobalResult = () => {
   const searchParams = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [result, setResult] = useState([
+  const [result, setResult] = useState<ResultItem[]>([
     { type: "question", id: 1, title: "Next.js question" },
     { type: "tag", id: 1, title: "Next.js question" },
     { type: "question", id: 1, title: "Next.js question" },
@@ -80,9 +86,9 @@ const GlobalResult = () => {
       ) : (
         <div className="flex flex-col gap-2">
           {result.length > 0 ? (
-            result.map((item: any, index: number) => (
+            result.map((item: ResultItem, index: number) => (
               <Link
-                href={renderLink(item.type, item.id)}
+                href={renderLink(item.type, item.id.toString())}
                 key={item.type + item.id + index}
                 className="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:bg-dark-500/50"
               >

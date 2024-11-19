@@ -13,7 +13,6 @@ import {
 import { AnswerSchema } from "@/lib/validations";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
 import { Editor } from "@tinymce/tinymce-react";
 import type { Editor as TinyMCEEditor } from "tinymce";
 import { useTheme } from "@/context/ThemeProvider";
@@ -57,7 +56,9 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       form.reset();
 
       if (editorRef.current) {
-        const editor = editorRef.current as any;
+        const editor = editorRef.current as unknown as {
+          setContent: (content: string) => void;
+        };
 
         editor.setContent("");
       }
@@ -86,7 +87,9 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
       const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br />");
       if (editorRef.current) {
-        const editor = editorRef.current as any;
+        const editor = editorRef.current as unknown as {
+          setContent: (content: string) => void;
+        };
         editor.setContent(formattedAnswer);
       }
 

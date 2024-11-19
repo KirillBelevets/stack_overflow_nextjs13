@@ -18,6 +18,10 @@ import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
 import { FilterQuery } from "mongoose";
 
+interface TagType {
+  _id: string;
+}
+
 export async function getQuestions(params: GetQuestionParams) {
   try {
     const { searchQuery, filter, page = 1, pageSize = 10 } = params;
@@ -313,7 +317,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
       .exec();
 
     // Extract tags from user's interactions
-    const userTags = userInteractions.reduce((tags, interaction) => {
+    const userTags: TagType[] = userInteractions.reduce((tags, interaction) => {
       if (interaction.tags) {
         tags = tags.concat(interaction.tags);
       }
@@ -321,10 +325,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
     }, []);
 
     // Get distinct tag IDs from user's interactions
-    const distinctUserTagIds = [
-      // @ts-ignore
-      ...new Set(userTags.map((tag: any) => tag._id)),
-    ];
+    const distinctUserTagIds = [...new Set(userTags.map((tag) => tag._id))];
 
     const query: FilterQuery<typeof Question> = {
       $and: [

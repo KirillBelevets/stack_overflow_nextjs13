@@ -11,8 +11,14 @@ import { auth } from "@clerk/nextjs/server";
 import { getUserById } from "@/lib/actions/user.action";
 import AllAnswers from "@/components/shared/AllAnswers";
 import Votes from "@/components/shared/Votes";
+import { Tag } from "@/components/forms/Question";
 
-const Page = async ({ params, searchParams }: any) => {
+interface PageProps {
+  params: { id: string };
+  searchParams: { page?: number | undefined; filter?: string };
+}
+
+const Page = async ({ params, searchParams }: PageProps) => {
   const { userId: clerkId } = await auth();
 
   let mongoUser;
@@ -91,7 +97,7 @@ const Page = async ({ params, searchParams }: any) => {
       <ParseHTML data={result.content} />
 
       <div className="mt-8 flex flex-wrap gap-2">
-        {result.tags.map((tag: any) => (
+        {result.tags.map((tag: Tag) => (
           <RenderTag
             key={tag._id}
             _id={tag._id}

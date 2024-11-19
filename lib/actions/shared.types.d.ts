@@ -9,13 +9,6 @@ export interface GetQuestionParams {
   filter?: string;
 }
 
-export interface CreateQuestionParams {
-  title: string;
-  content: string;
-  tags: string[];
-  author: Schema.Types.ObjectId | IUser;
-}
-
 export interface CreateAnswerParams {
   content: string;
   author: string; // User ID
