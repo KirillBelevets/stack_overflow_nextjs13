@@ -31,12 +31,12 @@ export interface ParamsProps {
 }
 
 export interface SearchParamsProps {
-  searchParams: Promise<any> | undefined;
+  searchParams?: { [key: string]: string | undefined };
 }
 
 export interface URLProps {
   params: { id: string };
-  searchParams: Promise<any> | undefine;
+  searchParams?: { [key: string]: string | undefined };
 }
 
 export interface BadgeCounts {

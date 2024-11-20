@@ -13,15 +13,16 @@ export const metadata: Metadata = {
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
+  const safeSearchParams = searchParams || {};
   // Destructure and parse searchParams properties
-  const { q, filter, page } = await searchParams;
+  const { q = "", filter = "", page = 1 } = safeSearchParams;
 
   // Convert the page to a number with a fallback to 1
   const parsedPage = page ? +page : 1;
 
   const result = await getAllUsers({
     searchQuery: q,
-    filter: filter,
+    filter,
     page: parsedPage,
   });
 

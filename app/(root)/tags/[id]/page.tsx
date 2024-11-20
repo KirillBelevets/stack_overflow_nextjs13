@@ -7,10 +7,12 @@ import { URLProps } from "@/types";
 import React from "react";
 
 const Page = async ({ params, searchParams }: URLProps) => {
+  const safeSearchParams = searchParams || {};
+
   const result = await getQuestionByTagId({
     tagId: params.id,
-    page: searchParams.page ? +searchParams.page : 1,
-    searchQuery: searchParams.q,
+    page: safeSearchParams.page ? +safeSearchParams.page : 1,
+    searchQuery: safeSearchParams.q,
   });
 
   return (
