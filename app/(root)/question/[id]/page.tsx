@@ -18,7 +18,7 @@ interface PageProps {
   searchParams: { page?: number | undefined; filter?: string };
 }
 
-const Page = async ({ params, searchParams }: PageProps) => {
+const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = await auth();
 
   let mongoUser;

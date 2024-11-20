@@ -1,5 +1,4 @@
 import { getUserInfo } from "@/lib/actions/user.action";
-import { URLProps } from "@/types";
 import Image from "next/image";
 import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import ProfileLink from "@/components/shared/ProfileLink";
 import Stats from "@/components/shared/Stats";
 import QuestionTab from "@/components/shared/QuestionTab";
 import AnswersTab from "@/components/shared/AnswersTab";
+import { URLProps } from "@/types";
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = await auth();
@@ -105,14 +105,14 @@ const Page = async ({ params, searchParams }: URLProps) => {
             className="mt-5 flex w-full flex-col gap-6"
           >
             <QuestionTab
-              searchParams={searchParams}
+              searchParams={searchParams || {}}
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
             <AnswersTab
-              searchParams={searchParams}
+              searchParams={searchParams || {}}
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
