@@ -9,9 +9,12 @@ interface Props extends SearchParamsProps {
 }
 
 const AnswersTab = async ({ searchParams, userId, clerkId }: Props) => {
+  const safeSearchParams = (await searchParams) || {};
+  const page = safeSearchParams.page ? +safeSearchParams.page : 1;
+
   const result = await getUserAnswers({
     userId,
-    page: searchParams.page ? +searchParams.page : 1,
+    page,
   });
 
   return (
@@ -29,10 +32,7 @@ const AnswersTab = async ({ searchParams, userId, clerkId }: Props) => {
       ))}
 
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNextAnswer}
-        />
+        <Pagination pageNumber={page} isNext={result.isNextAnswer} />
       </div>
     </>
   );

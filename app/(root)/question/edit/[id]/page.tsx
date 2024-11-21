@@ -8,10 +8,11 @@ import React from "react";
 const Page = async ({ params }: ParamsProps) => {
   const { userId } = await auth();
   if (!userId) return null;
+  const { id } = await params;
 
   const mongoUser = await getUserById({ userId });
 
-  const result = await getQuestionById({ questionId: params.id });
+  const result = await getQuestionById({ questionId: id });
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">Edit Question</h1>

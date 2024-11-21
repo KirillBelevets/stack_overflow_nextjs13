@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
-  const safeSearchParams = searchParams || {};
+  const safeSearchParams = (await searchParams) || {};
   // Destructure and parse searchParams properties
   const { q = "", filter = "", page = 1 } = safeSearchParams;
 
