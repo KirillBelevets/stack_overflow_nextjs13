@@ -3,7 +3,7 @@ const nextConfig = {
   experimental: {
     serverActions: true,
     mdxRs: true,
-    serverComponentsExternalPackages: ["mongoose"],
+    serverExternalPackages: ["mongoose"],
   },
   images: {
     domains: ["img.clerk.com"],

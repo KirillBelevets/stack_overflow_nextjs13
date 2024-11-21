@@ -13,11 +13,6 @@ import AllAnswers from "@/components/shared/AllAnswers";
 import Votes from "@/components/shared/Votes";
 import { Tag } from "@/components/forms/Question";
 
-interface PageProps {
-  params: { id: string };
-  searchParams: { page?: number | undefined; filter?: string };
-}
-
 const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = await auth();
 
